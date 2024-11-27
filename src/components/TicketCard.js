@@ -1,16 +1,23 @@
 import React from 'react';
 import '../styles/TicketCard.css';
-import optionss from '../assets/3 dot menu.svg'
-
+import optionss from '../assets/3 dot menu.svg';
 
 const TicketCard = ({ ticket, userName }) => {
     return (
         <div className="ticket-card">
-            <div className="ticket-card-header">
-                <div>
-                <span className="ticket-id" style={{display:'block', opacity: '0.4'}}>{ticket.id}</span>
+            <div className="ticket-card-header" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                <div
+                    className="ticket-id"
+                    style={{ opacity: '0.4', marginBlockStart: '0', textAlign: 'left', width: '100%' }}
+                >
+                    {ticket.id}
                 </div>
-                <span className="ticket-title" style={{display:'block' }}>{ticket.title}</span>
+                <div
+                    className="ticket-title"
+                    style={{ textAlign: 'left', width: '100%', marginTop: '5px' }}
+                >
+                    {ticket.title}
+                </div>
             </div>
             <div className="ticket-card-body">
                 <p className="ticket-type">{ticket.type}</p>
@@ -23,7 +30,6 @@ const TicketCard = ({ ticket, userName }) => {
                         Feature Request
                     </span>
                 </p>
-
             </div>
         </div>
     );
