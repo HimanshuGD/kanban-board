@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import GroupSelector from './GroupSelector';
 import TicketCard from './TicketCard';
+import TicketCard1 from './TicketCard1';
 import '../styles/KanbanBoard.css';
 
 import Todo from '../assets/To-do.svg';
@@ -153,9 +154,13 @@ const KanbanBoard = ({ tickets, users }) => {
                                 <img src={moreop} alt="More Options" />
                             </div>
                         </h6>
-                        {sortTickets(groupedTickets[group]).map((ticket) => (
-                            <TicketCard key={ticket.id} ticket={ticket} />
-                        ))}
+                            {groupedTickets[group].map((ticket) =>
+                                grouping === 'status' ? (
+                                    <TicketCard key={ticket.id} ticket={ticket} />
+                                ) : (
+                                    <TicketCard1 key={ticket.id} ticket={ticket} />
+                                )
+                            )}
                     </div>
                 ))}
             </div>
