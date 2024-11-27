@@ -1,0 +1,27 @@
+.feature-request-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.feature-image-box {
+    border: 1px solid #ccc;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+.feature-text-box {
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 2mm;
+}
+
+.feature-image {
+    width: 20px;
+    height: 16px;
+}
+.ticket-card-body span {
+    display: block;
+    margin-bottom: 10px;
+}
