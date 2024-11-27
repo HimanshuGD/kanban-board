@@ -38,7 +38,7 @@ const KanbanBoard = ({ tickets, users }) => {
         4: UrgentPriority
     };
 
-    const priorityLabels = {0: 'No Priority',4: 'Urgent',3: 'High',2: 'Medium',1: 'Low',};
+    const priorityLabels = { 0: 'No Priority', 4: 'Urgent', 3: 'High', 2: 'Medium', 1: 'Low' };
 
     const groupTickets = () => {
         if (grouping === 'status') {
@@ -60,7 +60,7 @@ const KanbanBoard = ({ tickets, users }) => {
         if (grouping === 'priority') {
             const groups = {};
             tickets.forEach((ticket) => {
-                const priority = ticket.priority || 0; 
+                const priority = ticket.priority || 0;
                 if (!groups[priority]) {
                     groups[priority] = [];
                 }
@@ -84,6 +84,17 @@ const KanbanBoard = ({ tickets, users }) => {
         return {};
     };
 
+    const sortedTickets = (group) => {
+        return groupedTickets[group].sort((a, b) => {
+            if (ordering === 'priority') {
+                return b.priority - a.priority;  // Priority in descending order
+            } else if (ordering === 'title') {
+                return a.title.localeCompare(b.title); // Title in alphabetical order
+            }
+            return 0; // Default sorting (no change)
+        });
+    };
+
     const groupedTickets = groupTickets();
 
     return (
@@ -100,61 +111,56 @@ const KanbanBoard = ({ tickets, users }) => {
                 {Object.keys(groupedTickets)
                     .sort((a, b) => {
                         if (grouping === 'priority') {
-                            const priorityOrder = [0, 4, 3, 2, 1]; 
+                            const priorityOrder = [0, 4, 3, 2, 1];
                             return priorityOrder.indexOf(parseInt(a)) - priorityOrder.indexOf(parseInt(b));
                         }
                         return 0;
                     })
                     .map((group) => (
-                    <div className="kanban-column" key={group}>
-                        <h6 style={{ display: 'flex', alignItems: 'center', fontSize: '12px' }}>
-                            {grouping === 'status' && (
-                                <>
-                                    <img
-                                        src={statusImages[group]}
-                                        alt={group}
-                                        style={{ paddingRight: '5px', height: '16px' }}
-                                    />
-                                    {group}
-                                </>
-                            )}
-                            {grouping === 'priority' && (
-                                <>
-                                    <img
-                                        src={priorityImages[group]}
-                                        alt={priorityLabels[group]}
-                                        style={{ paddingRight: '5px', height: '16px' }}
-                                    />
-                                    {priorityLabels[group]}
-                                </>
-                            )}
-                            {grouping === 'user' && (
-                                <>
-                                    {/* <img
-                                        src={users.find(u => u.name === group)?.avatar || 'default-avatar.svg'}
-                                        alt={group}
-                                        style={{ paddingRight: '5px', height: '16px', borderRadius: '50%' }}
-                                    /> */}
-                                    {group}
-                                </>
-                            )}
-                            <span className="ticket-count" style={{ paddingLeft: '10px' }}>
-                                {groupedTickets[group].length}
-                            </span>
-                            <div style={{ marginLeft: 'auto', display: 'flex', gap: '5px' }}>
-                                <img src={plus} alt="Add" />
-                                <img src={moreop} alt="More Options" />
-                            </div>
-                        </h6>
-                            {groupedTickets[group].map((ticket) =>
+                        <div className="kanban-column" key={group}>
+                            <h6 style={{ display: 'flex', alignItems: 'center', fontSize: '12px' }}>
+                                {grouping === 'status' && (
+                                    <>
+                                        <img
+                                            src={statusImages[group]}
+                                            alt={group}
+                                            style={{ paddingRight: '5px', height: '16px' }}
+                                        />
+                                        {group}
+                                    </>
+                                )}
+                                {grouping === 'priority' && (
+                                    <>
+                                        <img
+                                            src={priorityImages[group]}
+                                            alt={priorityLabels[group]}
+                                            style={{ paddingRight: '5px', height: '16px' }}
+                                        />
+                                        {priorityLabels[group]}
+                                    </>
+                                )}
+                                {grouping === 'user' && (
+                                    <>
+                                        {group}
+                                    </>
+                                )}
+                                <span className="ticket-count" style={{ paddingLeft: '10px' }}>
+                                    {groupedTickets[group].length}
+                                </span>
+                                <div style={{ marginLeft: 'auto', display: 'flex', gap: '5px' }}>
+                                    <img src={plus} alt="Add" />
+                                    <img src={moreop} alt="More Options" />
+                                </div>
+                            </h6>
+                            {sortedTickets(group).map((ticket) =>
                                 grouping === 'status' ? (
                                     <TicketCard key={ticket.id} ticket={ticket} />
                                 ) : (
                                     <TicketCard1 key={ticket.id} ticket={ticket} />
                                 )
                             )}
-                    </div>
-                ))}
+                        </div>
+                    ))}
             </div>
         </div>
     );
