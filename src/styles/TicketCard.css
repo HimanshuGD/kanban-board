@@ -1,3 +1,24 @@
+.ticket-card-header {
+    flex-direction: column;
+    gap: 4px;
+}
+
+.ticket-id,
+.ticket-title {
+    margin: 0;
+    line-height: 1.2;
+}
+
+.ticket-card-body {
+    margin-top: 8px;
+}
+
+.feature-request-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .feature-request-wrapper {
     display: flex;
     align-items: center;
@@ -21,7 +42,9 @@
     width: 20px;
     height: 16px;
 }
+
 .ticket-card-body span {
     display: block;
     margin-bottom: 10px;
 }
+
